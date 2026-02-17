@@ -1,0 +1,47 @@
+<nav>
+  <a class="logo" href="index.html">
+    <span class="logo-mark">FeedbackLens</span>
+    <span class="logo-tag">AWS Comprehend</span>
+  </a>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="index.html">Feedback einreichen</a>
+    <a class="nav-tab active" href="admin-login.html">Admin</a>
+  </div>
+</nav>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="cognito-badge">
+      <span class="cognito-dot"></span>
+      Amazon Cognito
+    </div>
+    <div class="login-title">Admin-Zugang</div>
+    <div class="login-sub">
+      Dieses Dashboard ist durch Amazon Cognito User Pools geschützt. Bitte melden Sie sich an.
+    </div>
+
+    <div class="error-msg" id="errorMsg">Falsches Passwort. Bitte erneut versuchen.</div>
+
+    <div class="form-group">
+      <label for="username">Benutzername</label>
+      <input type="text" id="username" placeholder="Benutzername" value="Benutzername" />
+    </div>
+    <div class="form-group">
+      <label for="password">Passwort</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="••••••••"
+        onkeydown="if (event.key === 'Enter') login();"
+      />
+    </div>
+
+    <button class="btn-primary" id="loginBtn" onclick="login()">
+      <span class="btn-text">Einloggen →</span>
+      <div class="btn-loader"></div>
+    </button>
+
+    <hr class="divider" />
+    <a class="back-link" href="index.html">← Zurück zum Feedback-Formular</a>
+  </div>
+</div>
