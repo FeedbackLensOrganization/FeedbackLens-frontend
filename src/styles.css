@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ed;
+    --cream: #ede9e2;
+    --warm-gray: #b8b0a4;
+    --accent: #c94f2c;
+    --positive: #2d6a4f;
+    --positive-bg: #d8f3dc;
+    --negative: #9b1c1c;
+    --negative-bg: #fde8e8;
+    --neutral: #374151;
+    --neutral-bg: #e5e7eb;
+    --mixed: #92400e;
+    --mixed-bg: #fef3c7;
+    --shadow: rgba(15,14,13,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Epilogue', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
