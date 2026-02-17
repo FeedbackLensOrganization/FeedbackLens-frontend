@@ -1,0 +1,85 @@
+<nav>
+  <a class="logo" href="index.html">
+    <span class="logo-mark">FeedbackLens</span>
+    <span class="logo-tag">AWS Comprehend</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-tabs">
+      <a class="nav-tab" href="index.html">Feedback einreichen</a>
+      <a class="nav-tab active" href="admin-dashboard.html">Admin</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">Abmelden</button>
+  </div>
+</nav>
+
+<div class="dashboard">
+  <div class="dash-header">
+    <div>
+      <div class="dash-title">Feedback-Dashboard</div>
+      <div class="dash-meta" id="lastUpdated">Letzte 7 Tage · wird geladen …</div>
+    </div>
+    <button class="btn-refresh" id="refreshBtn" onclick="refreshDashboard()">
+      <span class="refresh-icon">↻</span> Aktualisieren
+    </button>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-accent total"></div>
+      <div class="stat-label">Gesamt (7 Tage)</div>
+      <div class="stat-value" id="statTotal">0</div>
+      <div class="stat-sub">Einreichungen</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent positive"></div>
+      <div class="stat-label">Positiv</div>
+      <div class="stat-value" id="statPositive" style="color:var(--positive)">0</div>
+      <div class="stat-sub" id="statPositivePct">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent negative"></div>
+      <div class="stat-label">Negativ</div>
+      <div class="stat-value" id="statNegative" style="color:var(--negative)">0</div>
+      <div class="stat-sub" id="statNegativePct">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent neutral"></div>
+      <div class="stat-label">Neutral / Gemischt</div>
+      <div class="stat-value" id="statNeutral" style="color:var(--warm-gray)">0</div>
+      <div class="stat-sub" id="statNeutralPct">—</div>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-section">
+    <div class="section-header">
+      <div class="section-title">Sentiment-Verteilung</div>
+      <span class="section-badge">letzte 7 Tage</span>
+    </div>
+    <div class="chart-legend">
+      <div class="legend-item"><div class="legend-dot pos"></div>Positiv</div>
+      <div class="legend-item"><div class="legend-dot neg"></div>Negativ</div>
+      <div class="legend-item"><div class="legend-dot neu"></div>Neutral/Gemischt</div>
+    </div>
+    <div class="chart-bars" id="chartBars"></div>
+  </div>
+
+  <!-- ENTRIES -->
+  <div class="entries-section">
+    <div class="entries-header">
+      <div class="section-header" style="margin-bottom:0">
+        <div class="section-title">Alle Einträge</div>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-btn active" onclick="setFilter('ALL', this)">Alle</button>
+        <button class="filter-btn POSITIVE" onclick="setFilter('POSITIVE', this)">Positiv</button>
+        <button class="filter-btn NEGATIVE" onclick="setFilter('NEGATIVE', this)">Negativ</button>
+        <button class="filter-btn NEUTRAL"  onclick="setFilter('NEUTRAL', this)">Neutral</button>
+        <button class="filter-btn MIXED"    onclick="setFilter('MIXED', this)">Gemischt</button>
+      </div>
+    </div>
+    <div class="entry-list" id="entryList"></div>
+  </div>
+</div>

@@ -14,4 +14,12 @@ export const routes: Routes = [
       import('./features/public/auth/auth').then((m) => m.Auth),
     title: 'FeedbackLens – Login',
   },
+
+    {
+    // ── Admin (Lazy-loaded Feature Route) ───────────────────────────
+    path: 'admindashboard',
+    loadChildren: () =>
+      import('./features/admin-dashboard/admin-dashboard.routes').then((m) => m.ADMIN_DASHBOARD_ROUTES),
+    title: 'FeedbackLens – Admin',
+  },
 ];
