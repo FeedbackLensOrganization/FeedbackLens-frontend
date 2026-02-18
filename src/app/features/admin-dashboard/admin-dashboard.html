@@ -88,6 +88,46 @@
         <button class="filter-btn MIXED" onclick="setFilter('MIXED', this)">Gemischt</button>
       </div>
     </div>
-    <div class="entry-list" id="entryList"></div>
+    <div class="entry-list" id="entryList">
+      @for (feedback of feedbacks; track $index) {
+        <div class="entry-item">
+          <div class="entry-top">
+            <div class="entry-text">{{ feedback.text }}</div>
+            <div class="entry-meta">
+              <span class="sentiment-pill {{ feedback.sentiment }}">{{
+                feedback.sentiment === 'POSITIVE'
+                  ? '😊 Positiv'
+                  : feedback.sentiment === 'NEGATIVE'
+                    ? '😞 Negativ'
+                    : '😐 Neutral'
+              }}</span>
+              <div class="entry-date">{{ feedback.createdAt }}</div>
+            </div>
+          </div>
+          <div class="entry-bottom">
+            <div class="confidence-bar-wrap">
+              <span class="confidence-label">Konfidenz</span>
+              <div class="confidence-bar-bg">
+                <div class="confidence-bar-fill" style="width: 97%"></div>
+              </div>
+              <span class="confidence-val"
+                >{{
+                  feedback.sentiment === 'POSITIVE'
+                    ? feedback.confidenceJson[feedback.sentiment]
+                    : feedback.sentiment === 'NEGATIVE'
+                      ? feedback.confidenceJson[feedback.sentiment]
+                      : feedback.confidenceJson[feedback.sentiment]
+                }}%</span
+              >
+            </div>
+            <div class="keywords-wrap">
+              @for (keyword of feedback.keyPhrasesJson; track $index) {
+                <span class="keyword-chip">{{ keyword }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>
