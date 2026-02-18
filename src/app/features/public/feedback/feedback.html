@@ -10,10 +10,13 @@
 
 <div class="form-hero">
   <div class="eyebrow">Kundenfeedback</div>
-  <h1>Ihre Meinung<br><em>zählt.</em></h1>
-  <p class="form-sub">Teilen Sie uns mit, was Sie denken – positiv, kritisch oder alles dazwischen. Ihr Feedback wird automatisch ausgewertet.</p>
+  <h1>Ihre Meinung<br /><em>zählt.</em></h1>
+  <p class="form-sub">
+    Teilen Sie uns mit, was Sie denken – positiv, kritisch oder alles dazwischen. Ihr Feedback wird
+    automatisch ausgewertet.
+  </p>
 
-  <form class="feedback-form" id="feedbackForm" onsubmit="return false">
+  <form class="feedback-form" id="feedbackForm" onsubmit="return false;">
     <div class="form-group">
       <label for="category">Kategorie</label>
       <select id="category">
@@ -25,7 +28,12 @@
     </div>
     <div class="form-group">
       <label for="feedbackText">Ihr Feedback</label>
-      <textarea id="feedbackText" placeholder="Beschreiben Sie Ihre Erfahrung in eigenen Worten …" maxlength="1000" oninput="updateCounter()"></textarea>
+      <textarea
+        id="feedbackText"
+        placeholder="Beschreiben Sie Ihre Erfahrung in eigenen Worten …"
+        maxlength="1000"
+        oninput="updateCounter()"
+      ></textarea>
       <div class="char-counter"><span id="charCount">0</span> / 1000</div>
     </div>
     <button class="btn-primary" id="submitBtn" onclick="submitFeedback()">
@@ -37,21 +45,6 @@
   <div class="success-card" id="successCard">
     <div class="success-icon">✓</div>
     <div class="success-title">Danke für Ihr Feedback!</div>
-    <div class="success-sub">Amazon Comprehend hat Ihr Feedback analysiert:</div>
-    <div class="result-grid">
-      <div class="result-box">
-        <div class="result-box-label">Sentiment</div>
-        <div class="result-box-value" id="resultSentiment">—</div>
-      </div>
-      <div class="result-box">
-        <div class="result-box-label">Konfidenz</div>
-        <div class="result-box-value" id="resultConfidence">—</div>
-      </div>
-      <div class="result-box" style="grid-column:1/-1">
-        <div class="result-box-label">Schlüsselbegriffe</div>
-        <div class="keywords-wrap" id="resultKeywords"></div>
-      </div>
-    </div>
     <button class="btn-ghost" onclick="resetForm()">Weiteres Feedback einreichen</button>
   </div>
 </div>
