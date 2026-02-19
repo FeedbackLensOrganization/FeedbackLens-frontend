@@ -20,7 +20,7 @@
         {{ now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) }} uhr
       </div>
     </div>
-    <button class="btn-refresh" id="refreshBtn" onclick="refreshDashboard()">
+    <button class="btn-refresh" (click)="refreshDashboard()">
       <span class="refresh-icon">↻</span> Aktualisieren
     </button>
   </div>
@@ -123,11 +123,41 @@
         </div>
         <div class="filter-bar">
           <span class="filter-label">Filter:</span>
-          <button class="filter-btn"   [class.active]="selectedFilter() === 'ALL'" (click)="setFilter('ALL')">Alle</button>
-          <button class="filter-btn POSITIVE"  [class.active]="selectedFilter() === 'POSITIVE'"(click)="setFilter('POSITIVE')">Positiv</button>
-          <button class="filter-btn NEGATIVE" [class.active]="selectedFilter() === 'NEGATIVE'" (click)="setFilter('NEGATIVE')">Negativ</button>
-          <button class="filter-btn NEUTRAL"   [class.active]="selectedFilter() === 'NEUTRAL'"(click)="setFilter('NEUTRAL')">Neutral</button>
-          <button class="filter-btn MIXED"  [class.active]="selectedFilter() === 'MIXED'" (click)="setFilter('MIXED')">Gemischt</button>
+          <button
+            class="filter-btn"
+            [class.active]="selectedFilter() === 'ALL'"
+            (click)="setFilter('ALL')"
+          >
+            Alle
+          </button>
+          <button
+            class="filter-btn POSITIVE"
+            [class.active]="selectedFilter() === 'POSITIVE'"
+            (click)="setFilter('POSITIVE')"
+          >
+            Positiv
+          </button>
+          <button
+            class="filter-btn NEGATIVE"
+            [class.active]="selectedFilter() === 'NEGATIVE'"
+            (click)="setFilter('NEGATIVE')"
+          >
+            Negativ
+          </button>
+          <button
+            class="filter-btn NEUTRAL"
+            [class.active]="selectedFilter() === 'NEUTRAL'"
+            (click)="setFilter('NEUTRAL')"
+          >
+            Neutral
+          </button>
+          <button
+            class="filter-btn MIXED"
+            [class.active]="selectedFilter() === 'MIXED'"
+            (click)="setFilter('MIXED')"
+          >
+            Gemischt
+          </button>
         </div>
       </div>
       <div class="entry-list" id="entryList">

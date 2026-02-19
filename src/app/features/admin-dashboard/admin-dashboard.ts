@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ApiService } from '../../config/api-service';
 import { Feedback } from './model/feedback-module';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, of } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,6 +12,7 @@ import { catchError, of } from 'rxjs';
 })
 export class AdminDashboard {
   private apiService = inject(ApiService);
+  refreshTrigger = signal(0);
 
   error = signal<string | null>(null);
   now = new Date();
@@ -20,11 +21,15 @@ export class AdminDashboard {
   }
 
   feedbacks = toSignal(
-    this.apiService.getFeedbacks().pipe(
-      catchError((err) => {
-        this.error.set('Fehler beim Laden');
-        return of([]);
-      }),
+    toObservable(this.refreshTrigger).pipe(
+      switchMap(() =>
+        this.apiService.getFeedbacks().pipe(
+          catchError((err) => {
+            this.error.set('Fehler beim Laden');
+            return of([]);
+          }),
+        ),
+      ),
     ),
     { initialValue: [] },
   );
@@ -125,5 +130,10 @@ export class AdminDashboard {
   // Methode zum Setzen des Filters
   setFilter(filter: 'ALL' | 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | 'MIXED') {
     this.selectedFilter.set(filter);
+  }
+
+  refreshDashboard() {
+    this.refreshTrigger.update((v) => v + 1);
+    this.now = new Date(); // Zeit aktualisieren
   }
 }
