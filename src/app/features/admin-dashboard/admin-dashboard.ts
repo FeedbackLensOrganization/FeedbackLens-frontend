@@ -100,4 +100,30 @@ export class AdminDashboard {
   maxDayTotal = computed(() =>
     Math.max(...this.chartData().map((d) => d.positive + d.negative + d.neutral), 1),
   );
+
+  // Aktueller Filter
+  selectedFilter = signal<'ALL' | 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | 'MIXED'>('ALL');
+
+  // Gefilterte Feedbacks für Anzeige
+  filteredFeedbacks = computed(() => {
+    const filter = this.selectedFilter();
+    const feedbacks = this.last7DaysFeedbacks();
+
+    if (filter === 'ALL') return feedbacks;
+
+    if (filter === 'NEUTRAL') {
+      return feedbacks.filter((f) => f.sentiment === 'NEUTRAL');
+    }
+
+    if (filter === 'MIXED') {
+      return feedbacks.filter((f) => f.sentiment === 'MIXED');
+    }
+
+    return feedbacks.filter((f) => f.sentiment === filter);
+  });
+
+  // Methode zum Setzen des Filters
+  setFilter(filter: 'ALL' | 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | 'MIXED') {
+    this.selectedFilter.set(filter);
+  }
 }

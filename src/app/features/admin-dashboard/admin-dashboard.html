@@ -123,15 +123,15 @@
         </div>
         <div class="filter-bar">
           <span class="filter-label">Filter:</span>
-          <button class="filter-btn active" onclick="setFilter('ALL', this)">Alle</button>
-          <button class="filter-btn POSITIVE" onclick="setFilter('POSITIVE', this)">Positiv</button>
-          <button class="filter-btn NEGATIVE" onclick="setFilter('NEGATIVE', this)">Negativ</button>
-          <button class="filter-btn NEUTRAL" onclick="setFilter('NEUTRAL', this)">Neutral</button>
-          <button class="filter-btn MIXED" onclick="setFilter('MIXED', this)">Gemischt</button>
+          <button class="filter-btn"   [class.active]="selectedFilter() === 'ALL'" (click)="setFilter('ALL')">Alle</button>
+          <button class="filter-btn POSITIVE"  [class.active]="selectedFilter() === 'POSITIVE'"(click)="setFilter('POSITIVE')">Positiv</button>
+          <button class="filter-btn NEGATIVE" [class.active]="selectedFilter() === 'NEGATIVE'" (click)="setFilter('NEGATIVE')">Negativ</button>
+          <button class="filter-btn NEUTRAL"   [class.active]="selectedFilter() === 'NEUTRAL'"(click)="setFilter('NEUTRAL')">Neutral</button>
+          <button class="filter-btn MIXED"  [class.active]="selectedFilter() === 'MIXED'" (click)="setFilter('MIXED')">Gemischt</button>
         </div>
       </div>
       <div class="entry-list" id="entryList">
-        @for (feedback of feedbacks(); track $index) {
+        @for (feedback of filteredFeedbacks(); track $index) {
           <div class="entry-item">
             <div class="entry-top">
               <div class="entry-text">{{ feedback.text }}</div>
