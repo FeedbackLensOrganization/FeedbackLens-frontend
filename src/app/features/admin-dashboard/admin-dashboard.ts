@@ -136,4 +136,21 @@ export class AdminDashboard {
     this.refreshTrigger.update((v) => v + 1);
     this.now = new Date(); // Zeit aktualisieren
   }
+  positivePct = computed(() => {
+    const total = this.totalCount();
+    if (total === 0) return 0;
+    return Math.round((this.positiveCount() / total) * 100);
+  });
+
+  negativePct = computed(() => {
+    const total = this.totalCount();
+    if (total === 0) return 0;
+    return Math.round((this.negativeCount() / total) * 100);
+  });
+
+  neutralPct = computed(() => {
+    const total = this.totalCount();
+    if (total === 0) return 0;
+    return Math.round((this.neutralCount() / total) * 100);
+  });
 }

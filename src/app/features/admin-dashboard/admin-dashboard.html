@@ -39,7 +39,7 @@
       <div class="stat-value" id="statPositive" style="color: var(--positive)">
         {{ positiveCount() }}
       </div>
-      <div class="stat-sub" id="statPositivePct">—</div>
+      <div class="stat-sub"> {{ positivePct() }}% Anteil</div>
     </div>
     <div class="stat-card">
       <div class="stat-accent negative"></div>
@@ -47,7 +47,7 @@
       <div class="stat-value" id="statNegative" style="color: var(--negative)">
         {{ negativeCount() }}
       </div>
-      <div class="stat-sub" id="statNegativePct">—</div>
+      <div class="stat-sub">{{ negativePct() }}% Anteil</div>
     </div>
     <div class="stat-card">
       <div class="stat-accent neutral"></div>
@@ -55,7 +55,7 @@
       <div class="stat-value" id="statNeutral" style="color: var(--warm-gray)">
         {{ neutralCount() }}
       </div>
-      <div class="stat-sub" id="statNeutralPct">—</div>
+      <div class="stat-sub">{{ neutralPct() }}% Anteil</div>
     </div>
   </div>
 
