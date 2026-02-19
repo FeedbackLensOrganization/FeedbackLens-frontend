@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="entry-list" id="entryList">
-      @for (feedback of feedbacks; track $index) {
+      @for (feedback of feedbacks(); track $index) {
         <div class="entry-item">
           <div class="entry-top">
             <div class="entry-text">{{ feedback.text }}</div>
