@@ -58,4 +58,46 @@ export class AdminDashboard {
       this.last7DaysFeedbacks().filter((f) => f.sentiment === 'NEUTRAL' || f.sentiment === 'MIXED')
         .length,
   );
+
+  chartData = computed(() => {
+    const feedbacks = this.last7DaysFeedbacks();
+    const days: {
+      label: string;
+      dateKey: string;
+      positive: number;
+      negative: number;
+      neutral: number;
+    }[] = [];
+
+    const today = new Date();
+
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(today.getDate() - i);
+      date.setHours(0, 0, 0, 0);
+
+      const dateKey = date.toISOString().split('T')[0];
+
+      const dayFeedbacks = feedbacks.filter((f) => {
+        const created = new Date(f.createdAt);
+        created.setHours(0, 0, 0, 0);
+        return created.toISOString().split('T')[0] === dateKey;
+      });
+
+      days.push({
+        label: date.toLocaleDateString('de-DE', { weekday: 'short' }),
+        dateKey,
+        positive: dayFeedbacks.filter((f) => f.sentiment === 'POSITIVE').length,
+        negative: dayFeedbacks.filter((f) => f.sentiment === 'NEGATIVE').length,
+        neutral: dayFeedbacks.filter((f) => f.sentiment === 'NEUTRAL' || f.sentiment === 'MIXED')
+          .length,
+      });
+    }
+
+    return days;
+  });
+
+  maxDayTotal = computed(() =>
+    Math.max(...this.chartData().map((d) => d.positive + d.negative + d.neutral), 1),
+  );
 }

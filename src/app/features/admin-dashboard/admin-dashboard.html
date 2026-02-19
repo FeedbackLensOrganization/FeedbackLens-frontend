@@ -79,64 +79,98 @@
         Neutral/Gemischt
       </div>
     </div>
-    <div class="chart-bars" id="chartBars"></div>
-  </div>
+    <div class="chart-bars" id="chartBars">
+      @for (day of chartData(); track day.dateKey) {
+        <div class="chart-bar-wrap">
+          <div class="chart-stack">
+            @if (day.positive > 0) {
+              <div
+                class="chart-bar pos"
+                [style.height.px]="(day.positive / maxDayTotal()) * 100"
+                [title]="day.positive + ' positiv'"
+              ></div>
+            }
 
-  <!-- ENTRIES -->
-  <div class="entries-section">
-    <div class="entries-header">
-      <div class="section-header" style="margin-bottom: 0">
-        <div class="section-title">Alle Einträge</div>
-      </div>
-      <div class="filter-bar">
-        <span class="filter-label">Filter:</span>
-        <button class="filter-btn active" onclick="setFilter('ALL', this)">Alle</button>
-        <button class="filter-btn POSITIVE" onclick="setFilter('POSITIVE', this)">Positiv</button>
-        <button class="filter-btn NEGATIVE" onclick="setFilter('NEGATIVE', this)">Negativ</button>
-        <button class="filter-btn NEUTRAL" onclick="setFilter('NEUTRAL', this)">Neutral</button>
-        <button class="filter-btn MIXED" onclick="setFilter('MIXED', this)">Gemischt</button>
-      </div>
-    </div>
-    <div class="entry-list" id="entryList">
-      @for (feedback of feedbacks(); track $index) {
-        <div class="entry-item">
-          <div class="entry-top">
-            <div class="entry-text">{{ feedback.text }}</div>
-            <div class="entry-meta">
-              <span class="sentiment-pill {{ feedback.sentiment }}">{{
-                feedback.sentiment === 'POSITIVE'
-                  ? '😊 Positiv'
-                  : feedback.sentiment === 'NEGATIVE'
-                    ? '😞 Negativ'
-                    : '😐 Neutral'
-              }}</span>
-              <div class="entry-date">{{ feedback.createdAt }}</div>
-            </div>
+            @if (day.negative > 0) {
+              <div
+                class="chart-bar neg"
+                [style.height.px]="(day.negative / maxDayTotal()) * 100"
+                [title]="day.negative + ' negativ'"
+              ></div>
+            }
+
+            @if (day.neutral > 0) {
+              <div
+                class="chart-bar neu"
+                [style.height.px]="(day.neutral / maxDayTotal()) * 100"
+                [title]="day.neutral + ' neutral/gemischt'"
+              ></div>
+            }
           </div>
-          <div class="entry-bottom">
-            <div class="confidence-bar-wrap">
-              <span class="confidence-label">Konfidenz</span>
-              <div class="confidence-bar-bg">
-                <div class="confidence-bar-fill" style="width: 97%"></div>
-              </div>
-              <span class="confidence-val"
-                >{{
-                  feedback.sentiment === 'POSITIVE'
-                    ? feedback.confidenceJson[feedback.sentiment]
-                    : feedback.sentiment === 'NEGATIVE'
-                      ? feedback.confidenceJson[feedback.sentiment]
-                      : feedback.confidenceJson[feedback.sentiment]
-                }}%</span
-              >
-            </div>
-            <div class="keywords-wrap">
-              @for (keyword of feedback.keyPhrasesJson; track $index) {
-                <span class="keyword-chip">{{ keyword }}</span>
-              }
-            </div>
+
+          <div class="chart-bar-label">
+            {{ day.label }}
           </div>
         </div>
       }
+    </div>
+
+    <!-- ENTRIES -->
+    <div class="entries-section">
+      <div class="entries-header">
+        <div class="section-header" style="margin-bottom: 0">
+          <div class="section-title">Alle Einträge</div>
+        </div>
+        <div class="filter-bar">
+          <span class="filter-label">Filter:</span>
+          <button class="filter-btn active" onclick="setFilter('ALL', this)">Alle</button>
+          <button class="filter-btn POSITIVE" onclick="setFilter('POSITIVE', this)">Positiv</button>
+          <button class="filter-btn NEGATIVE" onclick="setFilter('NEGATIVE', this)">Negativ</button>
+          <button class="filter-btn NEUTRAL" onclick="setFilter('NEUTRAL', this)">Neutral</button>
+          <button class="filter-btn MIXED" onclick="setFilter('MIXED', this)">Gemischt</button>
+        </div>
+      </div>
+      <div class="entry-list" id="entryList">
+        @for (feedback of feedbacks(); track $index) {
+          <div class="entry-item">
+            <div class="entry-top">
+              <div class="entry-text">{{ feedback.text }}</div>
+              <div class="entry-meta">
+                <span class="sentiment-pill {{ feedback.sentiment }}">{{
+                  feedback.sentiment === 'POSITIVE'
+                    ? '😊 Positiv'
+                    : feedback.sentiment === 'NEGATIVE'
+                      ? '😞 Negativ'
+                      : '😐 Neutral'
+                }}</span>
+                <div class="entry-date">{{ feedback.createdAt }}</div>
+              </div>
+            </div>
+            <div class="entry-bottom">
+              <div class="confidence-bar-wrap">
+                <span class="confidence-label">Konfidenz</span>
+                <div class="confidence-bar-bg">
+                  <div class="confidence-bar-fill" style="width: 97%"></div>
+                </div>
+                <span class="confidence-val"
+                  >{{
+                    feedback.sentiment === 'POSITIVE'
+                      ? feedback.confidenceJson[feedback.sentiment]
+                      : feedback.sentiment === 'NEGATIVE'
+                        ? feedback.confidenceJson[feedback.sentiment]
+                        : feedback.confidenceJson[feedback.sentiment]
+                  }}%</span
+                >
+              </div>
+              <div class="keywords-wrap">
+                @for (keyword of feedback.keyPhrasesJson; track $index) {
+                  <span class="keyword-chip">{{ keyword }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </div>
 </div>
