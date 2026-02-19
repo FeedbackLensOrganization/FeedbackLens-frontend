@@ -30,25 +30,31 @@
     <div class="stat-card">
       <div class="stat-accent total"></div>
       <div class="stat-label">Gesamt (7 Tage)</div>
-      <div class="stat-value" id="statTotal">0</div>
+      <div class="stat-value" id="statTotal">{{ totalCount() }}</div>
       <div class="stat-sub">Einreichungen</div>
     </div>
     <div class="stat-card">
       <div class="stat-accent positive"></div>
       <div class="stat-label">Positiv</div>
-      <div class="stat-value" id="statPositive" style="color: var(--positive)">0</div>
+      <div class="stat-value" id="statPositive" style="color: var(--positive)">
+        {{ positiveCount() }}
+      </div>
       <div class="stat-sub" id="statPositivePct">—</div>
     </div>
     <div class="stat-card">
       <div class="stat-accent negative"></div>
       <div class="stat-label">Negativ</div>
-      <div class="stat-value" id="statNegative" style="color: var(--negative)">0</div>
+      <div class="stat-value" id="statNegative" style="color: var(--negative)">
+        {{ negativeCount() }}
+      </div>
       <div class="stat-sub" id="statNegativePct">—</div>
     </div>
     <div class="stat-card">
       <div class="stat-accent neutral"></div>
       <div class="stat-label">Neutral / Gemischt</div>
-      <div class="stat-value" id="statNeutral" style="color: var(--warm-gray)">0</div>
+      <div class="stat-value" id="statNeutral" style="color: var(--warm-gray)">
+        {{ neutralCount() }}
+      </div>
       <div class="stat-sub" id="statNeutralPct">—</div>
     </div>
   </div>

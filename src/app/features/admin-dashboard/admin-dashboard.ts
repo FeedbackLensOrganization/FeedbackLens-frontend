@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ApiService } from '../../config/api-service';
 import { Feedback } from './model/feedback-module';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -27,5 +27,35 @@ export class AdminDashboard {
       }),
     ),
     { initialValue: [] },
+  );
+
+  last7DaysFeedbacks = computed(() => {
+    const now = new Date();
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(now.getDate() - 7);
+
+    // 👉 auf 00:00 Uhr setzen
+    sevenDaysAgo.setHours(0, 0, 0, 0);
+
+    return this.feedbacks().filter((f) => {
+      const created = new Date(f.createdAt).getTime();
+      return created >= sevenDaysAgo.getTime();
+    });
+  });
+
+  totalCount = computed(() => this.last7DaysFeedbacks().length);
+  positiveCount = computed(
+    () => this.last7DaysFeedbacks().filter((f) => f.sentiment === 'POSITIVE').length,
+  );
+
+  negativeCount = computed(
+    () => this.last7DaysFeedbacks().filter((f) => f.sentiment === 'NEGATIVE').length,
+  );
+
+  neutralCount = computed(
+    () =>
+      this.last7DaysFeedbacks().filter((f) => f.sentiment === 'NEUTRAL' || f.sentiment === 'MIXED')
+        .length,
   );
 }
