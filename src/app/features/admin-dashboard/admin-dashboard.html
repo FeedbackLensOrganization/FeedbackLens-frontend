@@ -15,7 +15,10 @@
   <div class="dash-header">
     <div>
       <div class="dash-title">Feedback-Dashboard</div>
-      <div class="dash-meta" id="lastUpdated">Letzte 7 Tage · wird geladen …</div>
+      <div class="dash-meta" id="lastUpdated">
+        Letzte 7 Tage · Stand:
+        {{ now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) }} uhr
+      </div>
     </div>
     <button class="btn-refresh" id="refreshBtn" onclick="refreshDashboard()">
       <span class="refresh-icon">↻</span> Aktualisieren

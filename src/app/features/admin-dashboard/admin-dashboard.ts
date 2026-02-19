@@ -14,7 +14,7 @@ export class AdminDashboard {
   private apiService = inject(ApiService);
 
   error = signal<string | null>(null);
-
+  now = new Date();
   constructor() {
     this.feedbacks();
   }
