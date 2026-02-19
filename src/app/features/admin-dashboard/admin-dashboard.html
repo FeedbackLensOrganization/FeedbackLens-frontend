@@ -150,15 +150,24 @@
               <div class="confidence-bar-wrap">
                 <span class="confidence-label">Konfidenz</span>
                 <div class="confidence-bar-bg">
-                  <div class="confidence-bar-fill" style="width: 97%"></div>
+                  <div
+                    class="confidence-bar-fill"
+                    [style.width.%]="
+                      (feedback.sentiment === 'POSITIVE'
+                        ? feedback.confidenceJson[feedback.sentiment]
+                        : feedback.sentiment === 'NEGATIVE'
+                          ? feedback.confidenceJson[feedback.sentiment]
+                          : feedback.confidenceJson[feedback.sentiment]) * 100
+                    "
+                  ></div>
                 </div>
                 <span class="confidence-val"
                   >{{
-                    feedback.sentiment === 'POSITIVE'
+                    (feedback.sentiment === 'POSITIVE'
                       ? feedback.confidenceJson[feedback.sentiment]
                       : feedback.sentiment === 'NEGATIVE'
                         ? feedback.confidenceJson[feedback.sentiment]
-                        : feedback.confidenceJson[feedback.sentiment]
+                        : feedback.confidenceJson[feedback.sentiment]) * 100
                   }}%</span
                 >
               </div>
