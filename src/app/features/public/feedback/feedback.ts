@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-feedback',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './feedback.css',
 })
 export class Feedback {
+  maxLength = 1000;
+  feedbackText = signal('');
 
+  get charCount() {
+    return this.feedbackText().length;
+  }
 }

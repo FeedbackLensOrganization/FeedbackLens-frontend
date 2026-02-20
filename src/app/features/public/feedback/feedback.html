@@ -22,10 +22,13 @@
       <textarea
         id="feedbackText"
         placeholder="Beschreiben Sie Ihre Erfahrung in eigenen Worten …"
-        maxlength="1000"
-        oninput="updateCounter()"
+        [maxLength]="maxLength"
+        [value]="feedbackText()"
+        (input)="feedbackText.set($any($event.target).value)"
       ></textarea>
-      <div class="char-counter"><span id="charCount">0</span> / 1000</div>
+      <div class="char-counter">
+        <span id="charCount">{{ charCount }}</span> / {{ maxLength }}
+      </div>
     </div>
     <button class="btn-primary" id="submitBtn" onclick="submitFeedback()">
       <span class="btn-text">Feedback absenden →</span>
