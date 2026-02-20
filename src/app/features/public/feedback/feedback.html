@@ -15,30 +15,37 @@
     Teilen Sie uns mit, was Sie denken – positiv, kritisch oder alles dazwischen. Ihr Feedback wird
     automatisch ausgewertet.
   </p>
-
-  <form class="feedback-form" id="feedbackForm" onsubmit="return false;">
-    <div class="form-group">
-      <label for="feedbackText">Ihr Feedback</label>
-      <textarea
-        id="feedbackText"
-        placeholder="Beschreiben Sie Ihre Erfahrung in eigenen Worten …"
-        [maxLength]="maxLength"
-        [value]="feedbackText()"
-        (input)="feedbackText.set($any($event.target).value)"
-      ></textarea>
-      <div class="char-counter">
-        <span id="charCount">{{ charCount }}</span> / {{ maxLength }}
+  @if (!isSubmitted()) {
+    <form class="feedback-form" id="feedbackForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="feedbackText">Ihr Feedback</label>
+        <textarea
+          id="feedbackText"
+          placeholder="Beschreiben Sie Ihre Erfahrung in eigenen Worten …"
+          [maxLength]="maxLength"
+          [value]="feedbackText()"
+          (input)="feedbackText.set($any($event.target).value)"
+        ></textarea>
+        <div class="char-counter">
+          <span id="charCount">{{ charCount }}</span> / {{ maxLength }}
+        </div>
       </div>
-    </div>
-    <button class="btn-primary" id="submitBtn" onclick="submitFeedback()">
-      <span class="btn-text">Feedback absenden →</span>
-      <div class="btn-loader"></div>
-    </button>
-  </form>
+      <button
+        class="btn-primary"
+        (click)="submitFeedback()"
+        [disabled]="!feedbackText().trim() || isLoading()"
 
-  <div class="success-card" id="successCard">
-    <div class="success-icon">✓</div>
-    <div class="success-title">Danke für Ihr Feedback!</div>
-    <button class="btn-ghost" onclick="resetForm()">Weiteres Feedback einreichen</button>
-  </div>
+        [class.loading]="isLoading()"
+      >
+        <span class="btn-text">Feedback absenden →</span>
+        <div class="btn-loader"></div>
+      </button>
+    </form>
+  } @else {
+    <div class="success-card show" id="successCard">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Danke für Ihr Feedback!</div>
+      <button class="btn-ghost" (click)="resetForm()">Weiteres Feedback einreichen</button>
+    </div>
+  }
 </div>

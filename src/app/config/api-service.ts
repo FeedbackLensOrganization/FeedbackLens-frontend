@@ -13,4 +13,8 @@ export class ApiService {
     getFeedbacks() {
     return this.http.get<Feedback[]>(`${this.baseUrl}/feedbacks`);
   }
+
+  createFeedback(data: { text: string }) {
+  return this.http.post(`${this.baseUrl}/feedbacks`, data);
+}
 }
