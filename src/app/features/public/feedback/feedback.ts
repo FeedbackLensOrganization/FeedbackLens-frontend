@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { ApiService } from '../../../config/api-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-feedback',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './feedback.html',
   styleUrl: './feedback.css',
 })

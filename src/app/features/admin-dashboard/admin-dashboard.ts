@@ -1,12 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ApiService } from '../../config/api-service';
-import { Feedback } from './model/feedback-module';
+import { RouterModule } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
