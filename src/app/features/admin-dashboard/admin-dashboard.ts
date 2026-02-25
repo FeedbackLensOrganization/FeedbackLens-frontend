@@ -3,6 +3,7 @@ import { ApiService } from '../../config/api-service';
 import { RouterModule } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, switchMap } from 'rxjs';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,6 +14,7 @@ import { catchError, of, switchMap } from 'rxjs';
 export class AdminDashboard {
   private apiService = inject(ApiService);
   refreshTrigger = signal(0);
+  private authService = inject(AuthService);
 
   error = signal<string | null>(null);
   now = new Date();
@@ -153,4 +155,8 @@ export class AdminDashboard {
     if (total === 0) return 0;
     return Math.round((this.neutralCount() / total) * 100);
   });
+
+  logout() {
+    this.authService.logout();
+  }
 }
